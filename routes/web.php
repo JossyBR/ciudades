@@ -18,6 +18,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/info-city', [App\Http\Controllers\CityInfoController::class, 'index'])->name('info-city')->middleware('auth');
 
+// Rutas AJAX para obtener estados y ciudades
+Route::get('/states/{countryCode}', [CityInfoController::class, 'getStates'])->middleware('auth');
+Route::get('/cities/{countryCode}/{stateCode}', [CityInfoController::class, 'getCities'])->middleware('auth');
+
+Route::post('/get-city-info', [CityInfoController::class, 'getCityInfo'])->name('get-city-info')->middleware('auth');
+
+Route::post('/save-city-info', [CityInfoController::class, 'saveCityInfo'])->name('save-city-info')->middleware('auth');
+
 
 Route::get('/', function () {
     return view('welcome');
